@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: weather-history-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/weatherDB
+    username: weather
+    password: secret
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
