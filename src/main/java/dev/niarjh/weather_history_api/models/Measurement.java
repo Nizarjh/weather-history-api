@@ -1,0 +1,70 @@
+package dev.niarjh.weather_history_api.models;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+public class Measurement {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(updatable = false, nullable = false)
+    private UUID measurementId;
+
+    @Column(nullable = false)
+    private double temperature;
+
+    @Column(nullable = false)
+    private double apparentTemperature;
+
+    @Column(nullable = false)
+    private double rainInMm;
+
+    @Column(nullable = false)
+    private double snowfall;
+
+    @Column(nullable = false)
+    private double windSpeed10m;
+
+    @Column(nullable = false)
+    private double windDirection10m;
+
+    @Column(nullable = false)
+    private double surfacePressure;
+
+    @Column(nullable = false)
+    private double meanSeaLevelPressure;
+
+    @Column(nullable = false)
+    private int relativeHumidity2m;
+
+    @Column(nullable = false)
+    private int cloudCover;
+
+    @Column(nullable = false)
+    private boolean day;
+
+    @CreationTimestamp
+    LocalDateTime measuredAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
+}
