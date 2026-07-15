@@ -15,8 +15,6 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 @Entity
 @Getter
 @Setter
@@ -40,10 +38,10 @@ public class Measurement {
     @Column(nullable = false)
     private double snowfall;
 
-    @Column(nullable = false)
+    @Column(name = "wind_speed_10m", nullable = false)
     private double windSpeed10m;
 
-    @Column(nullable = false)
+    @Column(name = "wind_direction_10m", nullable = false)
     private double windDirection10m;
 
     @Column(nullable = false)
@@ -52,16 +50,16 @@ public class Measurement {
     @Column(nullable = false)
     private double meanSeaLevelPressure;
 
-    @Column(nullable = false)
+    @Column(name = "relative_humidity_2m", nullable = false)
     private int relativeHumidity2m;
 
     @Column(nullable = false)
     private int cloudCover;
 
     @Column(nullable = false)
-    private boolean day;
+    private boolean isDay;
 
-    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     LocalDateTime measuredAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
