@@ -1,4 +1,4 @@
-package dev.niarjh.weather_history_api.dto.request;
+package dev.niarjh.weather_history_api.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
