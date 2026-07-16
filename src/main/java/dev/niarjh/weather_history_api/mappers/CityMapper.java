@@ -1,15 +1,13 @@
 package dev.niarjh.weather_history_api.mappers;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
 
 import dev.niarjh.weather_history_api.dto.GetCityResponseDto;
 import dev.niarjh.weather_history_api.models.City;
 
-@Mapper
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CityMapper {
 
-    @Mapping(target = "cityId", ignore = true)
-    @Mapping(target = "measurements", ignore = true)
-    GetCityResponseDto carToGetCityResponseDto(City city);
+    GetCityResponseDto toGetCityResponseDto(City city);
 }
