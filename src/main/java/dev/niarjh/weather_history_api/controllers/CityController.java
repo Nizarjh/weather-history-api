@@ -48,7 +48,7 @@ public class CityController {
                 .body(cityService.getCityById(id));
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Void> createCity(
             @RequestBody @Valid AddCityRequestDto addCityRequestDto) {
         cityService.addNewCity(addCityRequestDto);
