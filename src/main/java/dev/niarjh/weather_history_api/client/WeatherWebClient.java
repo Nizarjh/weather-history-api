@@ -19,12 +19,10 @@ public class WeatherWebClient {
                         "relative_humidity_2m",
                         "apparent_temperature",
                         "is_day",
-                        "showers",
                         "surface_pressure",
                         "pressure_msl",
                         "snowfall",
-                        "wind_direction_10m",
-                        "wind_gusts_10m");
+                        "wind_direction_10m");
         private final WebClient webClient;
         public static final org.slf4j.Logger log = LoggerFactory.getLogger(WeatherWebClient.class);
 
@@ -44,7 +42,7 @@ public class WeatherWebClient {
                                 .accept(MediaType.APPLICATION_JSON)
                                 .retrieve()
                                 .bodyToMono(WeatherResponse.class)
-                                .doOnSuccess(city -> log.info("Found {}", city))
+                                .doOnSuccess(weather -> log.info("Found {}", weather))
                                 .block();
         }
 }

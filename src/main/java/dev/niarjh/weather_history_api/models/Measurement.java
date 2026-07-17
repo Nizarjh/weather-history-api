@@ -51,7 +51,7 @@ public class Measurement {
     private double surfacePressure;
 
     @Column(nullable = false)
-    private double meanSeaLevelPressure;
+    private double pressureAtSeaLevel;
 
     @Column(name = "relative_humidity_2m", nullable = false)
     private int relativeHumidity2m;
