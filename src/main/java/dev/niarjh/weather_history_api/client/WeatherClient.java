@@ -5,11 +5,13 @@ import java.math.BigDecimal;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import dev.niarjh.weather_history_api.client.dto.WeatherResponse;
 
-public class WeatherWebClient {
+@Component
+public class WeatherClient {
         private static final String CURRENT_FIELDS = String.join(",",
                         "temperature_2m",
                         "weather_code",
@@ -24,21 +26,21 @@ public class WeatherWebClient {
                         "snowfall",
                         "wind_direction_10m");
         private final WebClient webClient;
-        public static final org.slf4j.Logger log = LoggerFactory.getLogger(WeatherWebClient.class);
+        public static final org.slf4j.Logger log = LoggerFactory.getLogger(WeatherClient.class);
 
-        public WeatherWebClient(@Qualifier("weatherWebClient") WebClient webClient) {
+        public WeatherClient(@Qualifier("weatherWebClient") WebClient webClient) {
                 this.webClient = webClient;
         }
 
-        public WeatherResponse findCity(BigDecimal latitude, BigDecimal longitude) {
+        public WeatherResponse getCurrentWeather(BigDecimal latitude, BigDecimal longitude) {
                 return webClient.get()
                                 .uri(uriBuilder -> uriBuilder
-                                        .path("/v1/forecast")
-                                        .queryParam("latitude", latitude)
-                                        .queryParam("longitude", longitude)
-                                        .queryParam("current", CURRENT_FIELDS)
-                                        .queryParam("timezone", "auto")
-                                        .build())
+                                                .path("/v1/forecast")
+                                                .queryParam("latitude", latitude)
+                                                .queryParam("longitude", longitude)
+                                                .queryParam("current", CURRENT_FIELDS)
+                                                .queryParam("timezone", "auto")
+                                                .build())
                                 .accept(MediaType.APPLICATION_JSON)
                                 .retrieve()
                                 .bodyToMono(WeatherResponse.class)

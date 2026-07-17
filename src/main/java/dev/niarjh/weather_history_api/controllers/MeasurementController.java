@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dev.niarjh.weather_history_api.dto.GetCityResponseDto;
 import dev.niarjh.weather_history_api.dto.GetMeasurementResponseDto;
 import dev.niarjh.weather_history_api.dto.MeasurementSearchFilter;
 import dev.niarjh.weather_history_api.services.MeasurementService;
