@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.client.RestClient;
 
 import dev.niarjh.weather_history_api.client.dto.WeatherResponse;
 
@@ -25,15 +25,15 @@ public class WeatherClient {
                         "pressure_msl",
                         "snowfall",
                         "wind_direction_10m");
-        private final WebClient webClient;
+        private final RestClient restClient;
         public static final org.slf4j.Logger log = LoggerFactory.getLogger(WeatherClient.class);
 
-        public WeatherClient(@Qualifier("weatherWebClient") WebClient webClient) {
-                this.webClient = webClient;
+        public WeatherClient(@Qualifier("weatherRestClient") RestClient restClient) {
+                this.restClient = restClient;
         }
 
         public WeatherResponse getCurrentWeather(BigDecimal latitude, BigDecimal longitude) {
-                return webClient.get()
+                return restClient.get()
                                 .uri(uriBuilder -> uriBuilder
                                                 .path("/v1/forecast")
                                                 .queryParam("latitude", latitude)
@@ -43,8 +43,6 @@ public class WeatherClient {
                                                 .build())
                                 .accept(MediaType.APPLICATION_JSON)
                                 .retrieve()
-                                .bodyToMono(WeatherResponse.class)
-                                .doOnSuccess(weather -> log.info("Found {}", weather))
-                                .block();
+                                .body(WeatherResponse.class);
         }
 }
