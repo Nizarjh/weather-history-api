@@ -2,6 +2,8 @@ package dev.niarjh.weather_history_api.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,6 +36,10 @@ public class Measurement {
 
     @Column(nullable = false)
     private double apparentTemperature;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private WeatherCode weatherCode;
 
     @Column(nullable = false)
     private double rainInMm;
