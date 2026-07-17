@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import dev.niarjh.weather_history_api.client.GeoCodingClient;
 import dev.niarjh.weather_history_api.client.dto.GeocodingResponse;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
+@Transactional(readOnly = true)
 public class CityService {
     private final CityRepository repository;
     private final CityMapper cityMapper;
@@ -38,6 +40,7 @@ public class CityService {
                 pageable).map(cityMapper::toGetCityResponseDto);
     }
 
+    @Transactional
     public void addNewCity(AddCityRequestDto addCityRequestDto) {
         GeocodingResponse geocodingResponse = geoCodingClient.findCity(addCityRequestDto.cityName(),
                 addCityRequestDto.countryCode());
@@ -50,6 +53,7 @@ public class CityService {
         repository.save(city);
     }
 
+    @Transactional
     public void deleteCityById(UUID id) {
         City city = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Not found by id = " + id));

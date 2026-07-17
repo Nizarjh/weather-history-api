@@ -12,7 +12,7 @@ import dev.niarjh.weather_history_api.dto.CitySearchFilter;
 import dev.niarjh.weather_history_api.dto.GetCityResponseDto;
 import dev.niarjh.weather_history_api.services.CityService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/cities")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CityController {
     private final CityService cityService;
     public static final org.slf4j.Logger log = LoggerFactory.getLogger(CityController.class);
